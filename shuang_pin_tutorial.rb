@@ -1,15 +1,15 @@
-COUNT = 5
-TIP_ENABLE = true
-SEPARATOR='|||'
+COUNT = 10
+TIP_ENABLE = false
+SEPARATOR='~~~'
 
-# 声母列表 23 个 + 一个特殊的声母 o 用来输入单音节的韵母字
+# 聲母列表 23 個 + 一個特殊的聲母 o 用來輸入單音節的韻母字
 SHENG_MU = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q',
             'x', 'zh', 'ch', 'sh', 'z', 'c', 's ', ' y', 'w', 'r', 'o']
-# 韵母列表 24 个
+# 韻母列表 24 個
 # yun_mu=['a', 'o', 'e', 'i', 'u', 'v', 'ai ', 'ei', ' ui ', 'ao', ' ou',
 #         ' iu ', 'ie ', 've', ' er', ' an ', 'en ', 'in', ' un ', 'vn ', 'ang ', 'eng', ' ing ', 'ong']
 
-# 声母对应合法的韵母组合
+# 聲母對應合法的韻母組合
 LEGAL_COMPOSITE= {
     :B => %w(a ai an ang ao ei en eng i ian iao ie in ing o u),
     :C => %w(a ai an ang ao e en eng i ong ou u uan ui un uo),
@@ -38,7 +38,7 @@ LEGAL_COMPOSITE= {
 }
 
 
-# 每个按键对应的双拼表
+# 每個按鍵對應的雙拼表
 VALID_COMPOSITE={
     :Q => %w(q iu),
     :W => %w(w ia ua),
@@ -85,20 +85,20 @@ def rand_words(num = COUNT)
 end
 
 
-puts "请输入下面对应双拼规则 使用空格隔开, 退出输入 exit \n"
+puts "請輸入下面對應雙拼規則 使用空格隔開, 退出輸入 exit \n"
 
 
 def judge(incorrect, input_answer, result)
   if incorrect.length == 0
-    puts '恭喜你全对耶!'
+    puts '恭喜你全對耶!'
   else
     incorrect.each { |key, value|
-      puts "#{key} 错误 => #{value}"
+      puts "#{key} 錯誤 => #{value}"
     }
   end
 
   if input_answer.split.length < result.split(SEPARATOR)[0].split.length
-    puts '你好像有几个没有写完哦!'
+    puts '你好像有幾個沒有寫完哦!'
   end
 end
 
@@ -114,7 +114,7 @@ end
 def get_right_answer(res)
   right=''
   if LEGAL_COMPOSITE[:O].include? res
-    # 说明是韵母单音节字
+    # 說明是韻母單音節字
     right<<'O'
     get(res, right)
     return right
@@ -159,21 +159,21 @@ while true
   if input_answers.strip == 'exit'
     abort('好棒好棒!')
   end
-  # 随机组合
-  # 错误的字
+  # 隨機組合
+  # 錯誤的字
   incorrect ={}
 
   input_answers.split.each_with_index { |input_keys, index|
 
     if input_keys.length!=2
-      incorrect["#{index+1}.#{input_keys}"] = '双拼只能由两个字母组合而成!'
+      incorrect["#{index+1}.#{input_keys}"] = '雙拼只能由兩個字母組合而成!'
       next
     end
 
     res = result.split[index]
     right_answer= get_right_answer(res)
     unless right_answer.casecmp(input_keys.to_s)==0
-      incorrect["#{index+1}.#{input_keys}"] = "不能得到 #{res} 哦! 或许你可以试试 #{right_answer}"
+      incorrect["#{index+1}.#{input_keys}"] = "不能得到 #{res} 哦! 或許你可以試試 #{right_answer}"
     end
   }
   judge(incorrect, input_answers, result)

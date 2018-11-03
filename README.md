@@ -1,16 +1,18 @@
 
-# 帮助你快速学习双拼 -- 微软双拼
+# 幫助你快速學習雙拼 -- 微軟雙拼（繁體中文版）
 
-一个萌妹子风格的脚本文件，参考新华字典的设定，每次随机出现出合理的拼音组合，根据输出的拼音组合打出对应的双拼，空格隔开，回车提交。
+一個萌妹子風格的腳本文件，參考新華字典的設定，每次隨機出現出合理的拼音組合，根據輸出的拼音組合打出對應的雙拼，空格隔開，回車提交。
 
-![image](https://github.com/xwSurfer/shuang_pin_tutorial/blob/master/img1.png)
+附上：
++ 雙拼鍵盤口訣
++ 速成200字
 
+![image](https://github.com/jsdnhk/shuang_pin_tutorial/blob/master/img1.png)
 
+步驟：
 
-步骤：
-
-- 如果没有安装ruby 的情况下需要先[安装ruby](https://ruby-china.org/wiki/install_ruby_guide)
-- 在 `shuang_pin_tutorial.rb`同级目录下 执行下面命令即可
+- 如果沒有安裝ruby 的情況下需要先[安裝ruby](https://ruby-china.org/wiki/install_ruby_guide)
+- 在 `shuang_pin_tutorial.rb`同級目錄下 執行下面命令即可
 ````
 ruby shuang_pin_tutorial.rb
 ````
