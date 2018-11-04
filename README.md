@@ -5,6 +5,7 @@
 
 附上：
 + 雙拼鍵盤口訣
+![image](https://github.com/jsdnhk/shuang_pin_tutorial/blob/master/shuang_pin_keyboard.png)
 + 速成200字
 
 ![image](https://github.com/jsdnhk/shuang_pin_tutorial/blob/master/img1.png)
