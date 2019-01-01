@@ -172,6 +172,8 @@ mapped to 'i' and 'u'
           YUN_MU[:ün]
         when 'yong'
           YUN_MU[:iong]
+        when 'ju', 'jü', 'qu', 'qü', 'xu', 'xü'
+          (SHENG_MU[sheng] + YUN_MU[:ü]).chars.uniq.join
         else
           (sheng_zy + yun_zy).chars.uniq.join
       end
@@ -182,7 +184,7 @@ mapped to 'i' and 'u'
   end
 
   def self.get_cw(sheng, yun)   #sheng, yun: sym
-    cw = SHENG_YUN_WORD_TABLE.fetch(sheng.to_sym).fetch(yun.to_sym) rescue puts("內部錯誤：資料中沒有此字 【#{sheng}#{yun}】")
+    cw = SHENG_YUN_WORD_TABLE.fetch(sheng.to_sym).fetch(yun.to_sym) rescue puts("內部錯誤：資料中查無此字 【#{sheng}#{yun}】")
     cw ||= ''
   end
 end

@@ -8,7 +8,7 @@ COUNT = 6
 SEPARATOR='———'
 IS_ENABLE_TIPS = true
 IS_DISPLAY_ZHUYIN = true
-IS_DISPLAY_WORD = true
+IS_DISPLAY_CWORD = true
 
 def get_words_showlines(num = COUNT, display_delim: "|")   # return [words(str), [display line(s)]]
   result = []
@@ -28,7 +28,7 @@ def get_words_showlines(num = COUNT, display_delim: "|")   # return [words(str),
   end
   display << display_py.join(display_delim)
   display << display_zy.join(display_delim) if IS_DISPLAY_ZHUYIN
-  display << display_cw.join(display_delim) if IS_DISPLAY_WORD
+  display << display_cw.join(display_delim) if IS_DISPLAY_CWORD
   [result.join(" "), display]
 end
 
@@ -99,8 +99,8 @@ def main()
   # initialization
   sp_data = ShuangPinData.new()
 
-  puts "歡迎使用 快速學習雙拼 -- 微軟雙拼（繁體中文版）"
-  puts "請輸入下面對應雙拼規則。使用空格隔開，退出輸入 exit \n"
+  puts "歡迎使用 快速學習雙拼 -- 微軟雙拼（繁體中文版）！要好好練習哦！"
+  puts "請您輸入下面中文字對應雙拼字碼。使用空格隔開，要退出請輸入'exit'。\n"
   # looping
   while true
     result = question
@@ -110,7 +110,7 @@ def main()
 
     input_answers = gets
 
-    abort('努力學習！感謝使用！') if input_answers.strip == 'exit'
+    abort('請您努力學習！感謝使用！') if input_answers.strip == 'exit'
 
     # 隨機組合
     # 錯誤的字
