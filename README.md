@@ -3,10 +3,10 @@
 一個萌妹子風格的腳本文件，參考新華字典的設定，每次隨機出現出合理的拼音組合，\
 根據輸出的拼音組合中打出對應的雙拼，每個字用空格隔開，按Enter提交。
 
-快速學習雙拼 程序畫面：
+快速學習雙拼 程序畫面：\
 ![image][shuang_pin_tutorial_console]
 
-微軟雙拼鍵盤方案圖：
+微軟雙拼鍵盤方案圖：\
 ![image][shuang_pin_keyboard]
 
 在[作者(HuaWeng@GitHub)][arthor_github][原版][origin_shuang_pin_tutorial]上新增功能：
