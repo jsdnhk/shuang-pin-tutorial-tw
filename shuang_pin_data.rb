@@ -131,21 +131,22 @@ mapped to 'i' and 'u'
     SHENG_YUN_WORD_TABLE.freeze
     VALID_COMPOSITE.freeze
   end
-  
-  def self.get_rand_sheng_yun_sym()
+
+  # 提取隨機文字部分
+  def get_rand_sheng_yun_sym()
     sheng = SHENG_MU.keys.sample.to_sym
     yun = LEGAL_COMPOSITE[sheng].sample.to_sym
     [sheng, yun]
   end
 
-  def self.get_sheng_yun_zy(sheng, yun)
+  def get_sheng_yun_zy(sheng, yun)
     sheng_zy = SHENG_MU[sheng.to_sym].to_s.strip
     yun_zy = YUN_MU[yun.to_sym].to_s.strip
     [sheng_zy, yun_zy]
   end
 
-  def self.get_zy(sheng, yun)   #sheng, yun: sym
-      shengyun = self.get_sy(sheng, yun)
+  def get_zy(sheng, yun)   #sheng, yun: sym
+      shengyun = get_sy(sheng, yun)
       sheng_zy, yun_zy = get_sheng_yun_zy(sheng, yun)
       case shengyun  # special cases for zhuyin required to fine-adjust
         when 'zhi'
@@ -179,12 +180,43 @@ mapped to 'i' and 'u'
       end
   end
 
-  def self.get_sy(sheng, yun)   #sheng, yun: sym
+  def get_sy(sheng, yun)   #sheng, yun: sym
       (sheng.to_s.strip + yun.to_s.strip).sub(/^o/,'')
   end
 
-  def self.get_cw(sheng, yun)   #sheng, yun: sym
+  def get_cw(sheng, yun)   #sheng, yun: sym
     cw = SHENG_YUN_WORD_TABLE.fetch(sheng.to_sym).fetch(yun.to_sym) rescue puts("內部錯誤：資料中查無此字 【#{sheng}#{yun}】")
     cw ||= ''
+  end
+
+  # 計算拼音輸入碼答案部分
+  def get_correct_keys(input_pinyin)
+    press_keys=''
+    input_pinyin = input_pinyin.downcase.strip
+    if LEGAL_COMPOSITE[:o].include?(input_pinyin)
+      # 說明是韻母單音節字
+      press_keys << 'O'
+      get_a_press_key(input_pinyin, press_keys) # yun only
+      return press_keys
+    end
+
+    if input_pinyin.start_with?('zh', 'ch', 'sh')
+      get_a_press_key(input_pinyin[0,2], press_keys)  # sheng
+      get_a_press_key(input_pinyin[2,input_pinyin.length], press_keys)  # yun
+    else
+      get_a_press_key(input_pinyin[0,1], press_keys)  # sheng
+      get_a_press_key(input_pinyin[1,input_pinyin.length], press_keys)  # yun
+    end
+
+    press_keys
+  end
+
+  def get_a_press_key(word, press_keys)
+    VALID_COMPOSITE.each do |key, value|
+      if value.include?(word)
+        press_keys << key.to_s
+        break
+      end
+    end
   end
 end
