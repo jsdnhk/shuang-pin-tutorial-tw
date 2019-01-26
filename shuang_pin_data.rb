@@ -3,12 +3,19 @@
 class ShuangPinData
   # 聲母列表 23 個 + 一個特殊的聲母 o 用來輸入單音節的韻母字
   SHENG_MU = {
+      # 雙唇、齒唇音
       b: "ㄅ", p: "ㄆ", m: "ㄇ", f: "ㄈ",
+      # 舌尖中音
       d: "ㄉ", t: "ㄊ", n: "ㄋ", l: "ㄌ",
+      # 舌根音
       g: "ㄍ", k: "ㄎ", h: "ㄏ",
+      # 舌面前音
       j: "ㄐ", q: "ㄑ", x: "ㄒ",
+      # 舌尖後音
       zh: "ㄓ", ch: "ㄔ", sh: "ㄕ", r: "ㄖ",
+      # 舌尖前音
       z: "ㄗ", c: "ㄘ", s: "ㄙ",
+      # 無聲母
       y: "ㄧ", w: "ㄨ", o: ""
   }
 
@@ -190,11 +197,43 @@ mapped to 'i' and 'u'
   end
 
   # 計算拼音輸入碼答案部分
+  # recursive way
+  def get_correct_keys(input_pinyin)
+    return get_correct_keys_helper(input_pinyin, 2)
+  end
+
+  def get_correct_keys_helper(input_pinyin, output_keys)
+    press_keys = nil
+    input_pinyin = input_pinyin.downcase.strip
+    if output_keys == 0
+      return press_keys.to_s
+    elsif output_keys == 1
+      VALID_COMPOSITE.each do |key, value|
+        press_keys = key.to_s if value.include?(input_pinyin)
+        break if press_keys
+      end
+      return press_keys.to_s
+    elsif output_keys == 2
+      if LEGAL_COMPOSITE[:o].include?(input_pinyin) # 韻母單音節字
+        press_keys = 'O' + get_correct_keys_helper(input_pinyin, 1)
+      elsif input_pinyin.start_with?('zh', 'ch', 'sh')
+        press_keys = get_correct_keys_helper(input_pinyin[0,2], 1) + get_correct_keys_helper(input_pinyin[2..input_pinyin.length], 1)
+      else
+        press_keys = get_correct_keys_helper(input_pinyin[0,1], 1) + get_correct_keys_helper(input_pinyin[1..input_pinyin.length], 1)
+      end
+    else
+      raise(RangeError, '未需支援兩個以上拼音碼')
+    end
+    press_keys.to_s
+  end
+
+=begin
+  # iterative way
   def get_correct_keys(input_pinyin)
     press_keys=''
     input_pinyin = input_pinyin.downcase.strip
     if LEGAL_COMPOSITE[:o].include?(input_pinyin)
-      # 說明是韻母單音節字
+      # 韻母單音節字
       press_keys << 'O'
       get_a_press_key(input_pinyin, press_keys) # yun only
       return press_keys
@@ -219,4 +258,5 @@ mapped to 'i' and 'u'
       end
     end
   end
+=end
 end

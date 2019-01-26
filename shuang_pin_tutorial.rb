@@ -17,7 +17,7 @@ class ShuangPinTutorial
     @sp_data = ShuangPinData.new()
 
     puts "歡迎使用 快速學習雙拼 -- 微軟雙拼（繁體中文版）！要好好練習哦！"
-    puts "請您輸入下面中文字對應雙拼字碼。使用空格隔開，要退出請輸入'exit'。\n"
+    puts "要輸入下面中文字對應雙拼字碼啊！使用空格隔開，要休息請輸入'exit'。\n"
     # looping
     while true
       result = get_question_lines
@@ -28,7 +28,7 @@ class ShuangPinTutorial
       input_answers = gets
 
       if input_answers.respond_to?(:to_str)
-        break if input_answers.strip.downcase == 'exit'
+        raise(Interrupt, "用戶退出") if input_answers.strip.downcase == 'exit'
         eval_result(input_answers, result_words)
       end
     end
