@@ -34,9 +34,9 @@
 
 2) 在 `shuang_pin_tutorial.rb` 同級目錄下，執行下面命令即可
 ```sh
-ruby shuang_pin_tutorial.rb     #Windows/MacOS/Linux
+ruby shuang_pin_tutorial.rb     # Windows/MacOS/Linux
 
-./shuang_pin_tutorial.rb    #Alternative of MacOS/Linux
+./shuang_pin_tutorial.rb    # Alternative for MacOS/Linux
 ```
 
 [shuang_pin_tutorial_console]: ./img/shuang_pin_tutorial_console.png  "shuang pin tutorial console"
