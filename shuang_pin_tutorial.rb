@@ -2,6 +2,7 @@
 #
 # encoding: UTF-8
 
+require 'date'
 require_relative "shuang_pin_data"
 
 INT_WORDS_DISPLAYED = 6
@@ -15,7 +16,9 @@ class ShuangPinTutorial
   def start()
     # 初始化
     @sp_data = ShuangPinData.new()
-
+    @words_counts = [0, 0, 0]
+    @start_time = DateTime.now
+    @end_time = nil
     puts "歡迎使用 快速學習雙拼 -- 微軟雙拼（繁體中文版）！要好好練習哦！"
     puts "要輸入下面中文字對應雙拼字碼啊！使用空格隔開，要休息請輸入'exit'。\n"
     # looping
@@ -59,7 +62,11 @@ class ShuangPinTutorial
   def eval_result(input_answer, result_words)
     # 尋找打錯了的字
     incorrect = {}
+    correct = 0
+    is_all_finished = input_answer.split.length >= result_words.split.length
     input_answer.split.each_with_index do |input_keys, index|
+      break if index >= result_words.split.length   # ignore the extra input part
+
       if input_keys.length != 2
         incorrect[index + 1] = "#{input_keys}： 雙拼只能由兩個字母組合而成！"
         next
@@ -69,17 +76,20 @@ class ShuangPinTutorial
       right_answer = @sp_data.get_correct_keys(res)
       unless right_answer.casecmp(input_keys.to_s) == 0
         incorrect[index + 1] = "#{input_keys}： 不能得到 #{res} 哦！或許你可以試試 #{right_answer}"
+      else
+        correct += 1
       end
     end
 
     # 編出成績
-    is_all_finished = input_answer.split.length == result_words.split.length
+    @words_counts[0] += result_words.split.length
+    @words_counts[1] += correct
+    @words_counts[2] += result_words.split.length - correct
+
     if !is_all_finished
       puts "你好像寫不齊哦！共有：#{result_words.split.length}，已輸入：#{input_answer.split.length}"
-    else
-      if incorrect.length == 0
-        puts '恭喜你全對耶！'
-      end
+    elsif incorrect.length == 0
+      puts '恭喜你全對耶！'
     end
     incorrect.each { |key, value| puts "#{key}) 錯誤 => #{value}"}
   end
@@ -95,10 +105,37 @@ class ShuangPinTutorial
     end
     result
   end
+
+  def get_total_time_str
+    @end_time = DateTime.now
+    @total_time = ((@end_time - @start_time) * 24 * 60 * 60).to_i
+    str_total_time_s = Time.at(@total_time).utc.strftime("%S").gsub(/^0/, '')
+    str_total_time_m = Time.at(@total_time).utc.strftime("%M").gsub(/^0/, '')
+    str_total_time_h = Time.at(@total_time).utc.strftime("%H").gsub(/^0+/, '')
+    str_total_time =
+    case @total_time
+      when 0...60
+        "#{str_total_time_s} 秒"
+      when 60...3600
+        "#{str_total_time_m} 分 #{str_total_time_s} 秒"
+      else
+        "#{str_total_time_h} 小時 #{str_total_time_m} 分 #{str_total_time_s} 秒"
+    end
+    str_total_time
+  end
+
+  def get_total_words_result
+    percent_correctness = @words_counts[0].to_f != 0 ? (@words_counts[1].to_f/@words_counts[0].to_f) * 100 : 0
+    str_output = ""
+    str_output += "共有字數： #{@words_counts[0]} 字；正確字數： #{@words_counts[1]} 字；錯誤字數： #{@words_counts[2]} 字" + "\n"
+    str_output += "總正確率： #{percent_correctness.round(2)} %"
+    str_output
+  end
 end
 
 if __FILE__ == $0
   is_run_success = true
+  obj_tutorial = nil
   begin
     obj_tutorial = ShuangPinTutorial.new()
     obj_tutorial.start()
@@ -110,6 +147,10 @@ if __FILE__ == $0
     $stderr.puts(ex.backtrace)
     is_run_success = false
   ensure
+    $stdout.puts('訓練時間：')
+    $stdout.puts(obj_tutorial.get_total_time_str)
+    $stdout.puts('成果統計：')
+    $stdout.puts(obj_tutorial.get_total_words_result)
     $stdout.puts('要努力學習哦，感謝使用呀！')
     exit(is_run_success)
   end
