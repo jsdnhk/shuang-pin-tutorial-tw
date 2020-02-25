@@ -8,11 +8,11 @@ Gem::Specification.new do |s|
   s.name        = ShuangPinTutorial::NAME
   s.version     = ShuangPinTutorial::VERSION
   s.licenses    = 'MIT'
-  s.summary     = "The tutorial application for Microsoft Shuang Pin input method"
-  s.description = "Traditional Chinese version with zhuyin, pinyin and example word display"
+  s.summary     = "A tutorial application for Microsoft Shuang Pin input method."
+  s.description = "An interesting, featured tutorial application for practicing Microsoft Shuang Pin input method."
   s.authors     = ["David N"]
   s.email       = 'dn@jsdn.hk'
-  s.homepage    = 'https://jsdn.hk'
+  s.homepage    = 'https://github.com/jsdnhk/shuang_pin_tutorial'
 
   s.post_install_message = "Welcome using Microsoft Shuang Pin tutorial!"
 

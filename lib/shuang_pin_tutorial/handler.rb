@@ -21,7 +21,7 @@ module ShuangPinTutorial
       @start_time = DateTime.now
       @end_time = nil
       puts "歡迎使用 快速學習雙拼 -- 微軟雙拼（繁體中文版）！要好好練習哦！（#{VERSION} 版）"
-      puts "要輸入下面中文字對應雙拼字碼哦！使用空格隔開，要休息請輸入'exit' 或按 Ctrl+c 吧！\n"
+      puts "要輸入下面中文字對應雙拼字碼哦！使用空格隔開，要休息請輸入 'exit' 或按 Ctrl+c 吧！\n"
       # looping
       while true
         result = get_question_lines
