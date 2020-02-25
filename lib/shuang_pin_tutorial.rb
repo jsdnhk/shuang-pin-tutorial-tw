@@ -13,7 +13,7 @@ end
 module ShuangPinTutorial
   MODULE = "ShuangPinTutorial"
   NAME = "shuang_pin_tutorial"
-  VERSION = "1.1.0"
+  VERSION = "1.1.1"
 
   autoload(:Main, "#{NAME}/main")
   autoload(:Handler, "#{NAME}/handler")
