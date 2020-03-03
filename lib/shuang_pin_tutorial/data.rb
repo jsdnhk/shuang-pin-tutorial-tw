@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 # encoding: UTF-8
 
 module ShuangPinTutorial

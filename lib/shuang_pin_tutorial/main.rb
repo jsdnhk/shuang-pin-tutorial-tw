@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 # encoding: UTF-8
 
 require_relative 'handler'
@@ -10,8 +9,8 @@ module ShuangPinTutorial
       @obj_tutorial = nil
     end
 
-    def run()
-      @obj_tutorial = Handler.new()
+    def run(options = nil)
+      @obj_tutorial = Handler.new(options)
       @obj_tutorial.start()
     rescue Interrupt => ir
       $stdout.puts('累了就該休息一下吧！')
@@ -29,9 +28,4 @@ module ShuangPinTutorial
       exit(@is_run_success)
     end
   end
-end
-
-if __FILE__ == $0  # for test-run use
-  main = ShuangPinTutorial::Main.new()
-  main.run()
 end

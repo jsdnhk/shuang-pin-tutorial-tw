@@ -8,14 +8,13 @@ Gem::Specification.new do |s|
   s.name        = ShuangPinTutorial::NAME
   s.version     = ShuangPinTutorial::VERSION
   s.licenses    = 'MIT'
-  s.summary     = "A tutorial application for Microsoft Shuang Pin input method."
-  s.description = "An interesting, featured tutorial application for practicing Microsoft Shuang Pin input method."
+  s.summary     = "A tutorial application for Microsoft Shuang Pin input method(zh-tw)."
+  s.description = "An interesting, featured tutorial application for practicing Microsoft Shuang Pin input method(zh-tw)."
+  s.homepage    = 'https://github.com/jsdnhk/shuang_pin_tutorial'
   s.authors     = ["David N"]
   s.email       = 'dn@jsdn.hk'
-  s.homepage    = 'https://github.com/jsdnhk/shuang_pin_tutorial'
 
   s.post_install_message = "Welcome using Microsoft Shuang Pin tutorial!"
-
   s.rdoc_options     = ["--charset=UTF-8"]
   s.extra_rdoc_files = %w(README.md LICENSE)
 
@@ -30,7 +29,10 @@ Gem::Specification.new do |s|
 
   s.metadata = {
       "source_code_uri" => "https://github.com/jsdnhk/shuang_pin_tutorial",
-      "changelog_uri"     => "https://github.com/jsdnhk/shuang_pin_tutorial/CHANGELOG.md",
-      "documentation_uri" => "https://github.com/jsdnhk/shuang_pin_tutorial/README.md"
+      "changelog_uri"     => "https://github.com/jsdnhk/shuang_pin_tutorial/blob/master/CHANGELOG.md",
+      "documentation_uri" => "https://github.com/jsdnhk/shuang_pin_tutorial/blob/master/README.md"
   }
+
+  s.add_runtime_dependency("mercenary", "~> 0.4.0")
+  # s.add_runtime_dependency("i18n", "~> 1.2.0")
 end

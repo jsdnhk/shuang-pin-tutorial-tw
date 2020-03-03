@@ -4,7 +4,28 @@
 STDOUT.sync = true
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
+require 'mercenary'
 require 'shuang_pin_tutorial'
 
-main = ShuangPinTutorial::Main.new()
-main.run()
+spt = ShuangPinTutorial
+Mercenary.program(spt::NAME) do |p|
+  p.version spt::VERSION
+  p.description "A tutorial application for Microsoft Shuang Pin input method(zh-tw)."
+  p.syntax "#{spt::NAME} [OPTIONS]"
+
+  long_opt = Proc.new { |sym| "--#{spt::OPTIONS[sym].gsub(/_/, '-')}" }
+
+  p.option "#{spt::OPTIONS[:w]}",
+   "-w", "#{long_opt.call(:w)} [num]", "Words display in each section (defaults 6)"
+  p.option "#{spt::OPTIONS[:r]}",
+   "-r", "#{long_opt.call(:r)}", "Turn off the input reminder (defaults on)"
+  p.option "#{spt::OPTIONS[:z]}",
+   "-z", "#{long_opt.call(:z)}", "Turn off the Taiwan zhuyin display (defaults on)"
+  p.option "#{spt::OPTIONS[:c]}",
+   "-c", "#{long_opt.call(:c)}", "Turn off the Chinese word display (defaults on)"
+
+  p.action do |_args, options|
+    main = spt::Main.new()
+    main.run(options)
+  end
+end

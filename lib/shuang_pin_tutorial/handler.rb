@@ -4,14 +4,15 @@ require 'date'
 require_relative 'data'
 
 module ShuangPinTutorial
-  INT_WORDS_DISPLAYED = 6
+  # fixed const
   STR_TIPS_SEPARATOR='———'
-  IS_ENABLE_TIPS = true
-  IS_DISPLAY_ZHUYIN = true
-  IS_DISPLAY_CWORD = true
 
   class Handler
-    def initialize()
+    def initialize(options)
+      @int_words_displayed = options && options.key?(OPTIONS[:w]) ? options[OPTIONS[:w]].to_i : OPTIONS_DEFAULT[:w]   # integer
+      @is_enable_reminder = options && options.key?(OPTIONS[:r]) ? !options[OPTIONS[:r]] : OPTIONS_DEFAULT[:r]   # boolean(reverse)
+      @is_display_zhuyin = options && options.key?(OPTIONS[:z]) ? !options[OPTIONS[:z]] : OPTIONS_DEFAULT[:z]   # boolean(reverse)
+      @is_display_cword = options && options.key?(OPTIONS[:c]) ? !options[OPTIONS[:c]] : OPTIONS_DEFAULT[:c]   # boolean(reverse)
     end
 
     def start()
@@ -38,7 +39,7 @@ module ShuangPinTutorial
       end
     end
 
-    def get_words_showlines(num = INT_WORDS_DISPLAYED, display_delim: "|")   # return [words(str), [display line(s)]]
+    def get_words_showlines(num = @int_words_displayed, display_delim: "|")   # return [words(str), [display line(s)]]
       result = []
       display = []
       display_py = []
@@ -55,8 +56,8 @@ module ShuangPinTutorial
         display_cw.push(cw + "\t")
       end
       display << display_py.join(display_delim)
-      display << display_zy.join(display_delim) if IS_DISPLAY_ZHUYIN
-      display << display_cw.join(display_delim) if IS_DISPLAY_CWORD
+      display << display_zy.join(display_delim) if @is_display_zhuyin
+      display << display_cw.join(display_delim) if @is_display_cword
       [result.join(" "), display]
     end
 
@@ -100,7 +101,7 @@ module ShuangPinTutorial
       result_words = result[0]
       result_display = result[1]
       result_tips = []
-      if IS_ENABLE_TIPS
+      if @is_enable_reminder
         result_words.split.each { |res| result_tips.push(@sp_data.get_correct_keys(res)) }
         result_display[0] = "#{result_display[0]}  #{STR_TIPS_SEPARATOR}  【#{result_tips.join(" ")}】"
       end

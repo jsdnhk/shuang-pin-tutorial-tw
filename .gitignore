@@ -5,6 +5,7 @@
 .ruby-version
 *.gem
 Gemfile.lock
+.rake_tasks~
 
 # Files
 .analysis

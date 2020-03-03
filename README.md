@@ -3,12 +3,13 @@
 ### 程序簡介：
 
 一個萌妹子風格的輸入法學習套件，參考新華字典的設定，每次隨機出現出合理的拼音組合。<br>
-根據輸出的拼音組合中打出對應的雙拼，每個字用空格隔開，按 Enter 提交，輸入 ```exit``` 提交或者按下 Ctrl+c 退出練習。
+根據輸出的拼音組合中打出對應的雙拼，每個字用空格隔開，按 Enter 提交，輸入 ```exit``` 提交或者按下 Ctrl+c 退出練習。<br>
+程式已掛載上 [RubyGems][rubygem_shuang_pin_tutorial]，請用 [Gem 工具][rubygem_package_manager] 下載與使用本套件。
 
-快速學習雙拼 程序畫面：\
+快速學習雙拼 程序畫面：<br>
 ![image][shuang_pin_tutorial_console]
 
-微軟雙拼鍵盤方案圖：\
+微軟雙拼鍵盤方案圖：<br>
 ![image][shuang_pin_keyboard]
 
 <br>另外，[參考文件夾][folder_img]中附上：
@@ -29,7 +30,11 @@
 gem install shuang_pin_tutorial     # 透過 Gem 安裝學習雙拼套件
 
 shuang_pin_tutorial     # 運行套件
+shuang_pin_tutorial --help    # 查看選項
+shuang_pin_tutorial [OPTIONS]    # 運行自選項套件
 ```
+[rubygem_shuang_pin_tutorial]: https://rubygems.org/gems/shuang_pin_tutorial
+[rubygem_package_manager]: https://rubygems.org/pages/download
 
 [shuang_pin_tutorial_console]: ./img/shuang_pin_tutorial_console.png  "shuang pin tutorial console"
 [shuang_pin_keyboard]: ./img/shuang_pin_keyboard.png  "shuang pin keyboard"
