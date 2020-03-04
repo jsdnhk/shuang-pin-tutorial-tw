@@ -17,9 +17,10 @@ module ShuangPinTutorial
     rescue Exception => ex
       $stderr.puts('執行時發生錯誤哦，信息在下面：')
       $stderr.puts(ex.message)
-      $stderr.puts(ex.backtrace)
+      # $stderr.puts(ex.backtrace)  # debug use only
       @is_run_success = false
     ensure
+      exit(@is_run_success) unless @is_run_success
       $stdout.puts('訓練時間：')
       $stdout.puts(@obj_tutorial.get_total_time_str)
       $stdout.puts('成果統計：')

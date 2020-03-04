@@ -14,7 +14,7 @@ end
 module ShuangPinTutorial
   MODULE = "ShuangPinTutorial"
   NAME = "shuang_pin_tutorial"
-  VERSION = "1.2.1"
+  VERSION = "1.2.2"
   OPTIONS = {w: "words", r: "remind_off", z: "zhuyin_off", c: "cword_off"}
   OPTIONS_DEFAULT = {w: 6, r: true, z: true, c: true}
 

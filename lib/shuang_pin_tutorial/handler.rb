@@ -10,6 +10,7 @@ module ShuangPinTutorial
   class Handler
     def initialize(options)
       @int_words_displayed = options && options.key?(OPTIONS[:w]) ? options[OPTIONS[:w]].to_i : OPTIONS_DEFAULT[:w]   # integer
+      raise ArgumentError.new('請輸入有效顯示字數數目（>0）') unless @int_words_displayed > 0
       @is_enable_reminder = options && options.key?(OPTIONS[:r]) ? !options[OPTIONS[:r]] : OPTIONS_DEFAULT[:r]   # boolean(reverse)
       @is_display_zhuyin = options && options.key?(OPTIONS[:z]) ? !options[OPTIONS[:z]] : OPTIONS_DEFAULT[:z]   # boolean(reverse)
       @is_display_cword = options && options.key?(OPTIONS[:c]) ? !options[OPTIONS[:c]] : OPTIONS_DEFAULT[:c]   # boolean(reverse)
