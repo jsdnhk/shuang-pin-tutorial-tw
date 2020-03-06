@@ -1,5 +1,12 @@
 # 更新日誌
 
+### v1.3.0 (2020/03/06)
+
+#### 新增功能：
+
+* 練習總結優化
+* [專屬頁面][shuang_pin_tutorial_app_page]
+
 ### v1.2.0 (2020/03/03)
 
 #### 新增功能：
@@ -32,3 +39,4 @@
 
 [origin_author_github]: https://github.com/HuaWeng  "HuaWeng github page"
 [origin_shuang_pin_tutorial]: https://github.com/HuaWeng/shuang_pin_tutorial "origin shuang pin tutorial"
+[shuang_pin_tutorial_app_page]: http://jsdn.hk/shuang_pin_tutorial/

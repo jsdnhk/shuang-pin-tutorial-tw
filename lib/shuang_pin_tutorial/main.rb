@@ -20,11 +20,9 @@ module ShuangPinTutorial
       # $stderr.puts(ex.backtrace)  # debug use only
       @is_run_success = false
     ensure
+      @obj_tutorial.stop()
       exit(@is_run_success) unless @is_run_success
-      $stdout.puts('訓練時間：')
-      $stdout.puts(@obj_tutorial.get_total_time_str)
-      $stdout.puts('成果統計：')
-      $stdout.puts(@obj_tutorial.get_total_words_result)
+      @obj_tutorial.print_results
       $stdout.puts('要努力學習哦，感謝使用！')
       exit(@is_run_success)
     end

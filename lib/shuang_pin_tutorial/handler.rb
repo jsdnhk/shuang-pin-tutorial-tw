@@ -20,10 +20,10 @@ module ShuangPinTutorial
       # 初始化
       @sp_data = Data.new()
       @words_counts = [0, 0, 0]
-      @start_time = DateTime.now
-      @end_time = nil
+      @start_time, @end_time = DateTime.now, nil  # Datetime
+      @total_time, @type_speed = nil, nil   # Rational
       puts "歡迎使用 快速學習雙拼 -- 微軟雙拼（繁體中文版）！要好好練習哦！（#{VERSION} 版）"
-      puts "要輸入下面中文字對應雙拼字碼哦！使用空格隔開，要休息請輸入 'exit' 或按 Ctrl+c 吧！\n"
+      puts "要輸入下面中文字對應雙拼字碼哦！使用空格隔開，要休息請輸入 'exit' 或按 ctrl+c 吧！\n"
       # looping
       while true
         result = get_question_lines
@@ -38,6 +38,11 @@ module ShuangPinTutorial
           eval_result(input_answers, result_words)
         end
       end
+    end
+
+    def stop()
+      @end_time = DateTime.now
+      @total_time = (@end_time - @start_time) * 24 * 60 * 60
     end
 
     def get_words_showlines(num = @int_words_displayed, display_delim: "|")   # return [words(str), [display line(s)]]
@@ -109,12 +114,22 @@ module ShuangPinTutorial
       result
     end
 
+    def print_results
+      total_time = get_total_time_str
+      $stdout.puts("#{total_time}") if (total_time)
+      total_words_result = get_total_words_result
+      $stdout.puts("#{total_words_result}") if (total_words_result)
+      percent_correctness = get_percent_correctness
+      $stdout.puts("#{percent_correctness}") if (percent_correctness)
+      type_speed = get_type_speed_str
+      $stdout.puts("#{type_speed}") if (type_speed)
+    end
+
     def get_total_time_str
-      @end_time = DateTime.now
-      @total_time = ((@end_time - @start_time) * 24 * 60 * 60).to_i
-      str_total_time_s = Time.at(@total_time).utc.strftime("%S").gsub(/^0/, '')
-      str_total_time_m = Time.at(@total_time).utc.strftime("%M").gsub(/^0/, '')
-      str_total_time_h = Time.at(@total_time).utc.strftime("%H").gsub(/^0+/, '')
+      return nil unless @words_counts[0] > 0
+      str_total_time_s = Time.at(@total_time.to_i).utc.strftime("%S").gsub(/^0/, '')
+      str_total_time_m = Time.at(@total_time.to_i).utc.strftime("%M").gsub(/^0/, '')
+      str_total_time_h = Time.at(@total_time.to_i).utc.strftime("%H").gsub(/^0+/, '')
       str_total_time =
       case @total_time
         when 0...60
@@ -124,15 +139,24 @@ module ShuangPinTutorial
         else
           "#{str_total_time_h} 小時 #{str_total_time_m} 分 #{str_total_time_s} 秒"
       end
-      str_total_time
+      "訓練時間： #{str_total_time}"
     end
 
     def get_total_words_result
+      return nil unless @words_counts[0] > 0
+      "共有字數： #{@words_counts[0]} 字（#{@words_counts[1]}－#{@words_counts[2]}）"
+    end
+
+    def get_percent_correctness
+      return nil unless @words_counts[0] > 0
       percent_correctness = @words_counts[0].to_f != 0 ? (@words_counts[1].to_f/@words_counts[0].to_f) * 100 : 0
-      str_output = ""
-      str_output += "共有字數： #{@words_counts[0]} 字；正確字數： #{@words_counts[1]} 字；錯誤字數： #{@words_counts[2]} 字" + "\n"
-      str_output += "總正確率： #{percent_correctness.round(2)} %"
-      str_output
+      "總正確率： #{percent_correctness.round(2)} ％"
+    end
+
+    def get_type_speed_str
+      return nil unless @words_counts[0] > 0 && @words_counts[1] > 0
+      @type_speed = @total_time / @words_counts[1]  # 只計算正確字數
+      "平均速度： #{@type_speed.to_f.floor(2)} 秒／字"
     end
   end
 end

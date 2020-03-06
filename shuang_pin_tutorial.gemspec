@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.licenses    = 'MIT'
   s.summary     = "A tutorial application for Microsoft Shuang Pin input method(zh-tw)."
   s.description = "An interesting, featured tutorial application for practicing Microsoft Shuang Pin input method(zh-tw)."
-  s.homepage    = 'https://github.com/jsdnhk/shuang_pin_tutorial'
+  s.homepage    = 'http://jsdn.hk/shuang_pin_tutorial/'
   s.authors     = ["David N"]
   s.email       = 'dn@jsdn.hk'
 
